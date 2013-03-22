@@ -8,9 +8,9 @@
 
 [導入](https://github.com/Shinpeim/process-book/blob/master/001.md)
 
-[プロセスの生成](https://github.com/Shinpeim/process-book/blob/master/001.md)
+[プロセスの生成](https://github.com/Shinpeim/process-book/blob/master/002.md)
 
-[プロセスとファイル入出力](https://github.com/Shinpeim/process-book/blob/master/002.md)
+[プロセスとファイル入出力](https://github.com/Shinpeim/process-book/blob/master/003.md)
 
 [ファイルディスクリプタ](https://github.com/Shinpeim/process-book/blob/master/004.md)
 
