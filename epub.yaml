@@ -1,0 +1,30 @@
+# md2EPUB Setting
+
+# EPUBファイル名
+bookname: process-book.epub
+
+# 書名
+booktitle: プロセスブック
+
+# 著者
+aut: neko_gata_s
+
+# 出版者
+publisher: neko_gata_s
+
+#Language
+lang: ja
+
+#出版日
+# 無い場合は生成日になります
+#pubdate: 
+
+
+# UUID用のURL
+# 無い場合はランダムにUUIDを生成します
+#uuid: 
+
+
+# Debug
+# trueの場合生成した一時ファイルを残します
+debug: false
