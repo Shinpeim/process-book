@@ -1,0 +1,5 @@
+Gemfile.lock
+.bundle/
+working/
+release/
+.DS_Store
