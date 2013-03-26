@@ -21,3 +21,7 @@
 [シグナルとkill](https://github.com/Shinpeim/process-book/blob/master/007.md)
 
 [プロセスグループとフォアグランドプロセス](https://github.com/Shinpeim/process-book/blob/master/008.md)
+
+## epub と pdf
+
+epub化したもの、pdf化したものが release ディレクトリに入っています。thanks to mitukiii & moznion！
