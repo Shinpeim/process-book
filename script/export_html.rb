@@ -3,14 +3,22 @@
 
 require 'redcarpet'
 
+contributors = `git log --pretty=format:'%cn'`
+contributors = contributors.split("\n")
+contributors.sort!
+contributors.uniq!
+contributors.delete_if do |e|
+  e =~ /shinpei maruyama/i
+end
+
 # TODO title とAuthor, 著作権表示は書き換えて下さい
 HEADER = <<HEAD
 <html>
 <head>
 <title>Process Book</title>
-<meta name="Author" content="Shinpeim">
+<meta name="Author" content="Shinpei Maruyama">
 <meta name="DC.date.publication" content="2013-03">
-<meta name="DC.rights" content="2013 Shinpeim">
+<meta name="DC.rights" content="Shinpei Maruyama">
 <link rel="stylesheet" href="../styles/epub.css" type="text/css" />
 </head>
 <body>
@@ -18,7 +26,8 @@ HEADER = <<HEAD
   <div class='titlepage'>
     <h1 class='title'>Process Book</h1>
     <div class='author'>
-      <h3>Shinpeim</h3>
+      <h3>Author: Shinpeim</h3>
+      <h3>Contributors: #{contributors.join ", "}<h3>
     </div>
   </div>
 </div>
