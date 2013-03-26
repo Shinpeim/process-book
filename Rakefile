@@ -1,6 +1,6 @@
 task :default => "book"
 
-task book: [:epub, :clean]
+task book: [:epub, :pdf, :clean]
 
 if File.exists?('working')
   sh "rm -rf ./working"
@@ -15,6 +15,10 @@ end
 
 task epub: %w[html] do
   sh "ebook-convert release/process_book.html release/process_book.epub --no-default-epub-cover"
+end
+
+task pdf: %w[html] do
+  sh "wkhtmltopdf release/process_book.html release/process_book.pdf --encoding utf8"
 end
 
 task :clean do
