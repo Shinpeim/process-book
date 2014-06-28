@@ -6,21 +6,21 @@
 
 ## 目次
 
-[導入](https://github.com/Shinpeim/process-book/blob/master/001.md)
+[導入](/001.md)
 
-[プロセスの生成](https://github.com/Shinpeim/process-book/blob/master/002.md)
+[プロセスの生成](/002.md)
 
-[プロセスとファイル入出力](https://github.com/Shinpeim/process-book/blob/master/003.md)
+[プロセスとファイル入出力](/003.md)
 
-[ファイルディスクリプタ](https://github.com/Shinpeim/process-book/blob/master/004.md)
+[ファイルディスクリプタ](/004.md)
 
-[preforkサーバーを作ってみよう](https://github.com/Shinpeim/process-book/blob/master/005.md)
+[preforkサーバーを作ってみよう](/005.md)
 
-[ゾンビプロセスと孤児プロセス](https://github.com/Shinpeim/process-book/blob/master/006.md)
+[ゾンビプロセスと孤児プロセス](/006.md)
 
-[シグナルとkill](https://github.com/Shinpeim/process-book/blob/master/007.md)
+[シグナルとkill](/007.md)
 
-[プロセスグループとフォアグランドプロセス](https://github.com/Shinpeim/process-book/blob/master/008.md)
+[プロセスグループとフォアグランドプロセス](/008.md)
 
 ## epub と pdf
 
