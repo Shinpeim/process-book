@@ -1,0 +1,35 @@
+name: process-book
+url: http://shinpeim.github.io/process-book
+permalink: :title.md
+timezone: Asia/Tokyo
+
+defaults:
+  -
+    scope:
+      path: ''
+      type: 'pages'
+    values:
+      layout: 'pages'
+  -
+    scope:
+      path: ''
+      type: 'posts'
+    values:
+      layout: 'posts'
+
+markdown:
+  redcarpet
+redcarpet:
+  extensions:
+    - autolink
+
+highlighter:
+  pygments
+
+gems:
+  - jekyll-sitemap
+
+exclude:
+  - vendor
+  - Gemfile
+  - Rakefile

@@ -1,0 +1,106 @@
+---
+---
+@charset 'utf-8';
+
+body {
+	background-color: #eee;
+
+	@media only screen and (max-width: 850px - 1px) {
+		background-color: #fcfcfc;
+	}
+}
+
+// fork me on GitHub ribbon
+body > a {
+	@media only screen and (max-width: 1100px - 1px) {
+		display: none;
+	}
+}
+
+main {
+	background-color: #fff;
+	border-radius: 5px;
+	margin: 2% auto;
+	padding: 1% 2%;
+	width: 800px;
+
+	@media only screen and (max-width: 850px - 1px) {
+		background-color: #fcfcfc;
+		width: 95%;
+	}
+
+	h1 {
+		margin-top: 0;
+		margin-bottom: 2em;
+	}
+
+	h2 {
+		font-size: 2em;
+	}
+	
+	h3 {
+		border-bottom: 1px solid #ccc;
+		margin-top: 3em;
+	}
+	
+	p {
+		font-family:
+			"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
+			"メイリオ", Meiryo,
+			"游ゴシック", "Yu Gothic", YuGothic,
+			sans-serif;
+		margin: 2em 0;
+	}
+
+	p:last-child {
+		margin: 2em 0 1em 0;
+	}
+
+	a:hover {
+		text-decoration: none;
+	}
+}
+
+main .highlight {
+	background-color: #eee;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	padding: 0.4em 0.5em;
+
+	@media only screen and (max-width: 850px - 1px) {
+		overflow: scroll;
+	}
+
+	pre {
+		margin: 0;
+	}
+
+	pre code {
+		font-family: menlo, Inconsolata, monaco, monospace;
+		font-size: 80%;
+	}
+}
+
+.pager {
+	.prev {
+		float: left;
+	}
+
+	.next {
+		float: right;
+	}
+
+	.top {
+		left: 50%;
+		margin-left: -50px;
+		position: absolute;
+		text-align: center;
+		width: 100px;
+	}
+}
+
+.clearfix:after {
+	content: "";
+	clear: both;
+	display: block;
+}
