@@ -35,4 +35,4 @@ epub化したもの、pdf化したものが release ディレクトリに入っ�
 
 ## github-pages
 
-http://www.sasaplus1.com/process-book/
+http://shinpeim.github.io/process-book/
