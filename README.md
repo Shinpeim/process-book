@@ -33,4 +33,4 @@ epub化したもの、pdf化したものが release ディレクトリに入っ�
 
 ## github-pages
 
-http://shinpeim.github.io/process-book/
+http://shinpeim.github.io/process-book/ (thanks to @sasaplus1)
