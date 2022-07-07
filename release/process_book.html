@@ -12,7 +12,7 @@
     <h1 class='title'>Process Book</h1>
     <div class='author'>
       <h3>Author: Shinpeim</h3>
-      <h3>Contributors: Kazuya Takeshima, NAKAMURA Yoshitaka, Seizan Shimazaki, Tatsuya Saito, kkosuge, moznion<h3>
+      <h3>Contributors: DQNEO, Daichi Kudo, GitHub, Kazuya Takeshima, NAKAMURA Yoshitaka, Seizan Shimazaki, TAKANO Sho / @masaru_b_cl, Tatsuya Saito, hatyuki, kkosuge, moznion, muratayusuke<h3>
     </div>
   </div>
 </div>
@@ -24,25 +24,37 @@
 
 <h2 class="chapter" id="1">目次</h2>
 
-<p><a href=#2>導入</a></p>
+<p><a href="/001.md">導入</a></p>
 
-<p><a href=#3>プロセスの生成</a></p>
+<p><a href="/002.md">プロセスの生成</a></p>
 
-<p><a href=#4>プロセスとファイル入出力</a></p>
+<p><a href="/003.md">プロセスとファイル入出力</a></p>
 
-<p><a href=#5>ファイルディスクリプタ</a></p>
+<p><a href="/004.md">ファイルディスクリプタ</a></p>
 
-<p><a href=#6>preforkサーバーを作ってみよう</a></p>
+<p><a href="/005.md">preforkサーバーを作ってみよう</a></p>
 
-<p><a href=#7>ゾンビプロセスと孤児プロセス</a></p>
+<p><a href="/006.md">ゾンビプロセスと孤児プロセス</a></p>
 
-<p><a href=#8>シグナルとkill</a></p>
+<p><a href="/007.md">シグナルとkill</a></p>
 
-<p><a href=#9>プロセスグループとフォアグランドプロセス</a></p>
+<p><a href="/008.md">プロセスグループとフォアグランドプロセス</a></p>
 
 <h2 class="chapter" id="2">epub と pdf</h2>
 
-<p>epub化したもの、pdf化したものが release ディレクトリに入っています。thanks to mitukiii &amp; moznion！## 導入</p>
+<p>epub化したもの、pdf化したものが release ディレクトリに入っています。thanks to mitukiii &amp; moznion！</p>
+
+<h2 class="chapter" id="3">ライセンス</h2>
+
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.ja"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a></p>
+
+<p>この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.ja">クリエイティブ・コモンズ 表示 - 継承 3.0 非移植 ライセンスの下に提供されています。</a></p>
+
+<h2 class="chapter" id="4">github-pages</h2>
+
+<p><a href="http://shinpeim.github.io/process-book/">http://shinpeim.github.io/process-book/</a> (thanks to @sasaplus1)</p>
+
+<h2 class="chapter" id="5">導入</h2>
 
 <h3>マルチプロセスとスケジューリング</h3>
 
@@ -66,9 +78,9 @@ C         -----            ----------             ---                   --
 <pre><code>+ ------ + A -----        ----                  ---------         ----------
 | core 1 | B      ---         --------                   ----   --          -------
 + ------ + C         -----            ----------             ---                   --
-+ ------ + D ---        ----                  ---------         ----------
++ ------ + D ----       -----                 ----------         ----------
 | core 2 | E     ---         --------                   ----   --          -------
-+ ------ + F        ----            ----------             ---                   --
++ ------ + F        ----             ---------              ---                   --
 </code></pre>
 
 <p>大規模なデータを処理する場合などには、ひとつのコアだけではなく複数のコアを無駄なく使うためにも、複数のプロセスや複数のスレッドで処理を行う必要が出てくるわけです。</p>
@@ -79,7 +91,7 @@ C         -----            ----------             ---                   --
 
 <p>次回はプロセスについてもう少し深くまでもぐって見ていきます。</p>
 
-<h2 class="chapter" id="3">プロセスの生成</h2>
+<h2 class="chapter" id="6">プロセスの生成</h2>
 
 <h3>プロセスの例</h3>
 
@@ -232,7 +244,7 @@ forked!
 
 <p>なぜこうなるのか、説明しましょう。</p>
 
-<p>print &quot;forking!\n&quot;; という行は、まだfork前なので、プロセスがひとつだけの状態です。なので、普通にひとつの&quot;forking!&quot;が出力されます。しかし、print &quot;forked!\n&quot;; という行は、forkシステムコールでプロセスが複製されたあとです。そのため、この行は親プロセスとそこから複製された子プロセスが、別のプロセスとして実行します。親プロセスは親プロセスで&quot;forked!&quot;という文字列を標準出力という場所に出力します(perlのprintという関数は、引数に渡された文字列を標準出力に出力します)、一方、別の環境で動いている子プロセスも、&quot;forked!&quot;という文字列を標準出力という場所に出力します。今回の場合、親プロセスも子プロセスも標準出力はターミナルを意味するので(このあたりの話はまたあとで詳しくやります)、ターミナルに親プロセスと子プロセスの二つ分のforked!が出力されるわけです。</p>
+<p>print &quot;forking...\n&quot;; という行は、まだfork前なので、プロセスがひとつだけの状態です。なので、普通にひとつの&quot;forking...&quot;が出力されます。しかし、print &quot;forked!\n&quot;; という行は、forkシステムコールでプロセスが複製されたあとです。そのため、この行は親プロセスとそこから複製された子プロセスが、別のプロセスとして実行します。親プロセスは親プロセスで&quot;forked!&quot;という文字列を標準出力という場所に出力します(perlのprintという関数は、引数に渡された文字列を標準出力に出力します)、一方、別の環境で動いている子プロセスも、&quot;forked!&quot;という文字列を標準出力という場所に出力します。今回の場合、親プロセスも子プロセスも標準出力はターミナルを意味するので(このあたりの話はまたあとで詳しくやります)、ターミナルに親プロセスと子プロセスの二つ分のforked!が出力されるわけです。</p>
 
 <p>さて、今バックグラウンドで実行したこのスクリプトですが、ではプロセスはどのようになっているでしょうか。psコマンドで確認して見ましょう。</p>
 
@@ -242,7 +254,7 @@ forked!
 81998 ttys003    0:00.01 ruby -e loop do;sleep;end
 </code></pre>
 
-<p>psコマンドの出力に、上記のようなふたつの行が見つかるかと思います。上の perl fork<em>exec.pl というプロセスが私たちがさっき「$ perl fork</em>exec.pl &amp;」と実行したプロセスで、下の ruby -e loop do;sleep;end というプロセスが、forkされた子プロセスです。pstreeで見てみましょう。</p>
+<p>psコマンドの出力に、上記のようなふたつの行が見つかるかと思います。上の perl fork_exec.pl というプロセスが私たちがさっき「$ perl fork_exec.pl &amp;」と実行したプロセスで、下の ruby -e loop do;sleep;end というプロセスが、forkされた子プロセスです。pstreeで見てみましょう。</p>
 
 <pre><code>$ pstree 81996 (さっきpsで確認した &quot;perl fork_exec.pl&quot; のPIDを指定)
 -+= 81996 shinpeim perl fork_exec.pl
@@ -264,7 +276,7 @@ forked!
 
 <p>あたりを書きたい気持ちがある。</p>
 
-<h2 class="chapter" id="4">プロセスとファイル入出力</h2>
+<h2 class="chapter" id="7">プロセスとファイル入出力</h2>
 
 <p>さて、前回、プロセスというのは「自分が独占したメモリーの中で動いているので、その中で何をしても他のプロセスのメモリーに影響を与えない」というのを見れたかと思います。でも、そんな自分の中だけで完結してる引きこもりみたいなプロセスじゃあ、意味がないですね。外界からなんかデータをもらって、自分の中で処理して、それを外の世界に知らせる方法が必要になってきます。</p>
 
@@ -303,7 +315,7 @@ file.write(lines.join)
 file.close
 </code></pre>
 
-<p>nyan<em>copy.rbを、nyan.txtと同じディレクトリに作って、実行してみましょう。nyan.txtと同じ内容の、nyan</em>copy.txtというファイルが生まれたかと思います。さきほどディスクから読み込んでメモリー上に展開したデータを、そのまま別のファイルに対して出力したためですね。</p>
+<p>nyan_copy.rbを、nyan.txtと同じディレクトリに作って、実行してみましょう。nyan.txtと同じ内容の、nyan_copy.txtというファイルが生まれたかと思います。さきほどディスクから読み込んでメモリー上に展開したデータを、そのまま別のファイルに対して出力したためですね。</p>
 
 <p>こうして、プロセスはファイルを通じて外部との入出力を行うことができます。</p>
 
@@ -492,7 +504,7 @@ warn &quot;this is stderr&quot; # warnは標準エラー出力に引数を出力
 <pre><code>$ command_a | command_b
 </code></pre>
 
-<p>とすると、command<em>aの標準出力に出力された内容がcommand</em>bの標準入力に入力されます。この時、command<em>aの出力が全部終わってなくても(EOFに達しなくても)、command</em>bのプロセスは「来たデータから順々に」処理していきます。データがcommand<em>aから出力されたら、すぐにcommand</em>bはそのデータを処理します。まだEOFが来てないけどcommand<em>aからの出力が来ないぞ、というときにはcommand</em>bはどうするでしょうか。そうですね、標準入力からのデータを読み込む部分で「ブロック中」になって、command_aが標準出力になにかを吐くのを待ち続けるわけです。けなげですね。ちなみに、このように入力と出力をパイプでつないで、「ファイルの終わりを待たずにきたデータから順々に」なにか処理をするのを、パイプライン処理、とか、ストリーム処理、と言います。</p>
+<p>とすると、command_aの標準出力に出力された内容がcommand_bの標準入力に入力されます。この時、command_aの出力が全部終わってなくても(EOFに達しなくても)、command_bのプロセスは「来たデータから順々に」処理していきます。データがcommand_aから出力されたら、すぐにcommand_bはそのデータを処理します。まだEOFが来てないけどcommand_aからの出力が来ないぞ、というときにはcommand_bはどうするでしょうか。そうですね、標準入力からのデータを読み込む部分で「ブロック中」になって、command_aが標準出力になにかを吐くのを待ち続けるわけです。けなげですね。ちなみに、このように入力と出力をパイプでつないで、「ファイルの終わりを待たずにきたデータから順々に」なにか処理をするのを、パイプライン処理、とか、ストリーム処理、と言います。</p>
 
 <p>また、パイプはシェル上でふたつのプロセスの標準入出力をつなぐだけではなく、プロセス上でも新しい入出力のペアを作ることができます。RubyだったらIO.pipeを使うと実現できるでしょう。Perlだったらpipe関数ですね。詳しくはrubyの公式リファレンスやperldoc,pipe(2)を参照してください。</p>
 
@@ -500,7 +512,7 @@ warn &quot;this is stderr&quot; # warnは標準エラー出力に引数を出力
 
 <p>次回はファイルの入出力について、もっと深くまで潜っていきますよ！ファイルディスクリプタの話をして、ソケットの話をします。そのあとようやくファイルディスクリプタとforkの話ができたらいいな！さーて、次回も、サービス！サービスゥ！</p>
 
-<h2 class="chapter" id="5">ファイルディスクリプタ</h2>
+<h2 class="chapter" id="8">ファイルディスクリプタ</h2>
 
 <p>さて、前回、プロセスがファイルを通じて外部との入出力する様を見て見ました。今回はさらにプロセスとファイル入出力について詳しく見てみましょう。</p>
 
@@ -534,7 +546,7 @@ warn &quot;this is stderr&quot; # warnは標準エラー出力に引数を出力
 
 <pre><code># fd.rb
 file = File.open(&quot;nyan.txt&quot;,&quot;w&quot;) # openシステムコールでnyan.txtを書き込みモードでopen
-p file.fileno # fileno メソッドで、ファイルディスクリプタ(番号札)を取得
+puts file.fileno # fileno メソッドで、ファイルディスクリプタ(番号札)を取得
 file.close #fileをclose
 </code></pre>
 
@@ -553,9 +565,9 @@ file.close #fileをclose
 <p>さて、勘のいいひとはそろそろ例の標準入力は0、標準出力は1、標準エラー出力は2、という謎の数字の正体について、感付きつつあるのではないでしょうか。そうです。実は、「標準入力のファイルディスクリプタは0、標準出力のファイルディスクリプタは1、標準エラー出力のファイルディスクプタは2」なのです。実際に確かめてみましょう</p>
 
 <pre><code># std_fds.rb
-p $stdin.fileno  # =&gt; 0
-p $stdout.fileno # =&gt; 1
-p $stderr.fileno # =&gt; 2
+puts $stdin.fileno  # =&gt; 0
+puts $stdout.fileno # =&gt; 1
+puts $stderr.fileno # =&gt; 2
 </code></pre>
 
 <p>おー。</p>
@@ -691,7 +703,7 @@ end
 
 <p>さて、forkした際のファイルディスクリプタ、オープンファイル記述の振る舞いについては上に見たとおりです。では今度は前回謎の挙動として上げておいた、「リダイレクトの順序」について見てみましょう。</p>
 
-<p>まずは、リダイレクトの順序の謎はどのようなものだったか簡単に復讐してみましょう。</p>
+<p>まずは、リダイレクトの順序の謎はどのようなものだったか簡単に復習してみましょう。</p>
 
 <pre><code>$ ruby stdout_stderr.rb 1&gt;out.txt 2&gt;&amp;1
 </code></pre>
@@ -731,7 +743,7 @@ end
 
 <p>ソケットの話してpreforkサーバーを自分で書いてみるつもり</p>
 
-<h2 class="chapter" id="6">preforkサーバーを作ってみよう</h2>
+<h2 class="chapter" id="9">preforkサーバーを作ってみよう</h2>
 
 <p>さて、前回は、fork するとファイルディスクリプタ(以下fdと表記)は複製されるけどオープンファイル記述は共有されるというのを見ました。これを利用して、preforkモデルのサーバーを実際に書いてみましょう。</p>
 
@@ -746,7 +758,7 @@ require &quot;socket&quot;
 listening_socket = TCPServer.open(12345)
 
 # ソケットもファイルなので fd がある
-p listening_socket.fileno
+puts listening_socket.fileno
 
 # ひとまずなにもせず閉じる
 listening_socket.close
@@ -756,7 +768,7 @@ listening_socket.close
 
 <h3>クライアントの接続を受け入れる</h3>
 
-<p>今は socket を開いてなにもせずにすぐ閉じてしまいましたが、今度はクライアントの接続を受け入れてしてみましょう。</p>
+<p>今は socket を開いてなにもせずにすぐ閉じてしまいましたが、今度はクライアントの接続を受け入れてみましょう。</p>
 
 <pre><code># -*- coding: utf-8 -*-
 require &quot;socket&quot;
@@ -764,7 +776,7 @@ require &quot;socket&quot;
 # 12345 portで待ち受けるソケットを開く
 listening_socket = TCPServer.open(12345)
 
-p listening_socket.fileno
+puts listening_socket.fileno
 
 # acceptでクライアントからの接続を待つ
 # 接続されるまでブロックする
@@ -775,7 +787,7 @@ puts &quot;accepted!&quot;
 # 接続されると新しいsocketが作られる
 # このsocketを通じてクライアントと通信する
 # あたらしいsocketなのでfdの番号がlistening_socketと違う
-p socket.fileno
+puts socket.fileno
 
 # なにもせずクライアントとのコネクションを切る
 socket.close
@@ -951,7 +963,7 @@ Process.waitall
 
 <p>次回はちょっと話を戻して、forkした際に親が先に死んだり終わったりしたらどうなるのとかそういう話をしたいなって思います。</p>
 
-<h2 class="chapter" id="7">ゾンビプロセスと孤児プロセス</h2>
+<h2 class="chapter" id="10">ゾンビプロセスと孤児プロセス</h2>
 
 <p>さて、前回までで fork とかファイルとかのことはだいたいわかってきたかと思います。今回は、「親が死んだ子供は養子になるしかない」「子供が親の見てないところで死ぬとゾンビになってしまう」という話をします。</p>
 
@@ -1052,7 +1064,7 @@ else {
 
 <p>次回はようやくシグナルについて書く予定です。共有メモリの話と、スレッドの話もその後にできればしたいけど、気力ないかもしれないので次回が最終回の可能性が微レ存……</p>
 
-<h2 class="chapter" id="8">シグナルとkill</h2>
+<h2 class="chapter" id="11">シグナルとkill</h2>
 
 <p>さて、前回までで fork とプロセスの関係についてはなんとなく概要が把握できたんじゃないかなと思います。今回は、シグナルについてです。</p>
 
@@ -1082,7 +1094,7 @@ $ ps
 <pre><code>$ ps
 </code></pre>
 
-<p>すると、さきほどまで存在していた perl プロセスが無くなっていることがわかると思います。これはいったいどうしたことでしょうか。実は、SIGINTというプロセスを受け取ると、デフォルト値ではそのプロセスは実行を停止するのです。sleep し続けていたプロセスに SIGINT というシグナルを送ったことによりプロセスに「割り込み」をして、そのプロセスの実行を止めてしまったわけですね。</p>
+<p>すると、さきほどまで存在していた perl プロセスが無くなっていることがわかると思います。これはいったいどうしたことでしょうか。実は、SIGINTというシグナルを受け取ると、デフォルト値ではそのプロセスは実行を停止するのです。sleep し続けていたプロセスに SIGINT というシグナルを送ったことによりプロセスに「割り込み」をして、そのプロセスの実行を止めてしまったわけですね。</p>
 
 <h3>シグナルを受け取ったときの動作を変えてみる</h3>
 
@@ -1195,8 +1207,8 @@ while (1) {
 <pre><code>$ ps f
   PID TTY      STAT   TIME COMMAND
 16753 pts/2    Ss     0:00 -bash
-16891 pts/2    S      0:00  \_ perl hoge.pl
-16892 pts/2    S      0:00  |   \_ perl hoge.pl
+16891 pts/2    S      0:00  \_ perl fork_and_sleep.pl
+16892 pts/2    S      0:00  |   \_ perl fork_and_sleep.pl
 16928 pts/2    R+     0:00  \_ ps f
 </code></pre>
 
@@ -1214,11 +1226,11 @@ while (1) {
 
 <pre><code>$ perl fork_and_sleep.pl &amp;
 
-$ ps -f
+$ ps f
   PID TTY      STAT   TIME COMMAND
 16753 pts/2    Ss     0:00 -bash
-17288 pts/2    S      0:00  \_ perl hoge.pl
-17289 pts/2    S      0:00  |   \_ perl hoge.pl
+17288 pts/2    S      0:00  \_ perl fork_and_sleep.pl
+17289 pts/2    S      0:00  |   \_ perl fork_and_sleep.pl
 17293 pts/2    R+     0:00  \_ ps f
 
 $ kill -INT 17288 # 親プロセスにSIGINTを送る
@@ -1227,7 +1239,7 @@ $ ps f
   PID TTY      STAT   TIME COMMAND
 16753 pts/2    Ss     0:00 -bash
 17352 pts/2    R+     0:00  \_ ps f
-17289 pts/2    S      0:00 perl hoge.pl
+17289 pts/2    S      0:00 perl fork_and_sleep.pl
 </code></pre>
 
 <p><em>「！？」</em> 今度は子プロセスが残っています（親プロセスが死んだからinitの子供になっており、ツリーの表示も変わっています）。</p>
@@ -1242,7 +1254,7 @@ $ ps f
 
 <p><a href="http://gihyo.jp/dev/serial/01/perl-hackers-hub/000603">Perl Hackers Hub 第6回　UNIXプログラミングの勘所（3）</a></p>
 
-<h2 class="chapter" id="9">プロセスグループ と フォアグランドプロセス</h2>
+<h2 class="chapter" id="12">プロセスグループ と フォアグラウンドプロセス</h2>
 
 <p>前回はプロセスとシグナル、そしてシグナルを明示的にプロセスに送るためのコマンド kill について見ました。そして最後にひとつ謎が残ったわけですが、今回はその謎を解いて行きましょう。</p>
 
@@ -1402,7 +1414,7 @@ fork;
 sleep;
 </code></pre>
 
-<p>上記のようなスクリプトをフォアグランドで実行して、Ctrl+C でSIGINTを送ってみましょう。すると、&quot;got SIGINT!&quot; がふたつ標準エラーに出力されるはずです。これは、子プロセスと親プロセスが同じプロセスグループに属しているため、このふたつのプロセスがフォラグランドで実行されているからですね。</p>
+<p>上記のようなスクリプトをフォアグラウンドで実行して、Ctrl+C でSIGINTを送ってみましょう。すると、&quot;got SIGINT!&quot; がふたつ標準エラーに出力されるはずです。これは、子プロセスと親プロセスが同じプロセスグループに属しているため、このふたつのプロセスがフォアグラウンドで実行されているからですね。</p>
 
 <p>では今度は、プロセスグループが別の場合を見てみましょう。</p>
 
@@ -1426,14 +1438,14 @@ else {
 
     # setpgrpを呼び出して新しいプロセスグループのリーダーになる
     # これにより、子プロセスは親プロセスと異なるプロセスグループに
-    # 属すことになり、フォアグランドで実行されている
+    # 属すことになり、フォアグラウンドで実行されている
     # プロセスグループから抜ける
     setpgrp;
     sleep;
 }
 </code></pre>
 
-<p>上記のようなスクリプトをフォアグランドで実行して、Ctrl+C でSIGINTを送ってみましょう。すると、&quot;got SIGINT!&quot; が今度はひとつだけ出力されるはずです。これは、子プロセスが親プロセスのプロセスグループを抜けて別のプロセスグループになったため、フォアグランドから抜けてしまったためです。</p>
+<p>上記のようなスクリプトをフォアグラウンドで実行して、Ctrl+C でSIGINTを送ってみましょう。すると、&quot;got SIGINT!&quot; が今度はひとつだけ出力されるはずです。これは、子プロセスが親プロセスのプロセスグループを抜けて別のプロセスグループになったため、フォアグラウンドから抜けてしまったためです。</p>
 
 <p>別の例も見てみましょう。</p>
 
@@ -1482,7 +1494,7 @@ if ($pid) {
 else {
     # setpgrpを呼び出して新しいプロセスグループのリーダーになる
     # これにより、子プロセスは親プロセスと異なるプロセスグループに
-    # 属すことになり、フォアグランドで実行されている
+    # 属すことになり、フォアグラウンドで実行されている
     # プロセスグループから抜ける
     setpgrp;
 
@@ -1494,7 +1506,7 @@ else {
 }
 </code></pre>
 
-<p>上記のようなスクリプトをフォアグラウンドで実行してみましょう。さっきとは異なり、ターミナルになにかを打ち込んでもおうむがえししてこないのが見て取れると思います。これは子プロセスが親プロセスとは別のPGIDに属したことによって、フォアグランドで実行されているプロセスグループから抜けたためですね。</p>
+<p>上記のようなスクリプトをフォアグラウンドで実行してみましょう。さっきとは異なり、ターミナルになにかを打ち込んでもおうむがえししてこないのが見て取れると思います。これは子プロセスが親プロセスとは別のPGIDに属したことによって、フォアグラウンドで実行されているプロセスグループから抜けたためですね。</p>
 
 <p>さて、これで前回謎だった挙動にも説明がつきましたね。これで、プロセスグループの解説はおしまいにします。</p>
 
