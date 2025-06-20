@@ -48,5 +48,4 @@ jobs:
         name: Release ${{ steps.generate_tag.outputs.tag_name }}
         files: |
           release/process_book.pdf
-          release/process_book.html
         token: ${{ secrets.GITHUB_TOKEN }}
