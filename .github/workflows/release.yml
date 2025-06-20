@@ -2,11 +2,6 @@ name: Create Release
 
 on:
   workflow_dispatch:
-    inputs:
-      release_name:
-        description: 'リリース名（例: v1.0.0）'
-        required: true
-        type: string
 
 jobs:
   build-and-release:
@@ -14,6 +9,14 @@ jobs:
     
     steps:
     - uses: actions/checkout@v4
+    
+    - name: Generate release tag with JST datetime
+      id: generate_tag
+      run: |
+        # JSTの日時を取得（フォーマット: YYYY-MM-DD-HH-MM-SS）
+        JST_DATETIME=$(TZ='Asia/Tokyo' date +'%Y-%m-%d-%H-%M-%S')
+        echo "tag_name=${JST_DATETIME}" >> $GITHUB_OUTPUT
+        echo "Generated tag: ${JST_DATETIME}"
     
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
@@ -41,8 +44,8 @@ jobs:
     - name: Create Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.event.inputs.release_name }}
-        name: ${{ github.event.inputs.release_name }}
+        tag_name: ${{ steps.generate_tag.outputs.tag_name }}
+        name: Release ${{ steps.generate_tag.outputs.tag_name }}
         files: |
           release/process_book.pdf
           release/process_book.html
