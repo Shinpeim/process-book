@@ -35,22 +35,11 @@ jobs:
         bundle exec rake pdf
     
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
         tag_name: ${{ github.event.inputs.release_name }}
-        release_name: ${{ github.event.inputs.release_name }}
-        draft: false
-        prerelease: false
-    
-    - name: Upload PDF to Release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./release/process_book.pdf
-        asset_name: process_book.pdf
-        asset_content_type: application/pdf
+        name: ${{ github.event.inputs.release_name }}
+        files: |
+          release/process_book.pdf
+          release/process_book.epub
+        token: ${{ secrets.GITHUB_TOKEN }}
