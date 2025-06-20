@@ -21,10 +21,10 @@ jobs:
         ruby-version: '3.0'
         bundler-cache: true
     
-    - name: Install wkhtmltopdf
+    - name: Install wkhtmltopdf and dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y wkhtmltopdf
+        sudo apt-get install -y wkhtmltopdf libfontconfig1 libxrender1 libxext6
     
     - name: Create release directory
       run: mkdir -p release
@@ -41,5 +41,5 @@ jobs:
         name: ${{ github.event.inputs.release_name }}
         files: |
           release/process_book.pdf
-          release/process_book.epub
+          release/process_book.html
         token: ${{ secrets.GITHUB_TOKEN }}
