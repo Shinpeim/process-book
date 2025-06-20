@@ -1,0 +1,11 @@
+services:
+  process-book:
+    build: .
+    container_name: process-book-runner
+    volumes:
+      - ./examples:/app/examples
+    stdin_open: true
+    tty: true
+    # 通常のLinux環境と同じようにinitプロセスを使う
+    init: true
+    command: /bin/bash
