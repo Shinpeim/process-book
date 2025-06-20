@@ -33,10 +33,10 @@ async function generatePDF() {
       format: 'A4',
       printBackground: true,
       margin: {
-        top: '20mm',
-        right: '20mm',
-        bottom: '20mm',
-        left: '20mm'
+        top: '30mm',
+        right: '25mm',
+        bottom: '30mm',
+        left: '25mm'
       }
     });
 
