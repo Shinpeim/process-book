@@ -2,11 +2,6 @@ name: Create Release
 
 on:
   workflow_dispatch:
-    inputs:
-      release_name:
-        description: 'リリース名（例: v1.0.0）'
-        required: true
-        type: string
 
 jobs:
   build-and-release:
@@ -15,42 +10,47 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
+    - name: Generate release tag with JST datetime
+      id: generate_tag
+      run: |
+        # JSTの日時を取得（フォーマット: YYYY-MM-DD-HH-MM-SS）
+        JST_DATETIME=$(TZ='Asia/Tokyo' date +'%Y-%m-%d-%H-%M-%S')
+        echo "tag_name=${JST_DATETIME}" >> $GITHUB_OUTPUT
+        echo "Generated tag: ${JST_DATETIME}"
+    
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
         ruby-version: '3.0'
         bundler-cache: true
     
-    - name: Install wkhtmltopdf
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+    
+    - name: Install Japanese fonts
       run: |
         sudo apt-get update
-        sudo apt-get install -y wkhtmltopdf
+        sudo apt-get install -y fonts-noto-cjk fonts-ipafont-gothic fonts-ipafont-mincho
+    
+    - name: Install Puppeteer
+      run: npm install puppeteer
     
     - name: Create release directory
       run: mkdir -p release
     
-    - name: Build PDF
-      run: |
-        bundle exec rake html
-        bundle exec rake pdf
+    - name: Build HTML
+      run: bundle exec rake html
+    
+    - name: Generate PDF with Puppeteer
+      run: node script/generate_pdf.js
     
     - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.event.inputs.release_name }}
-        release_name: ${{ github.event.inputs.release_name }}
-        draft: false
-        prerelease: false
-    
-    - name: Upload PDF to Release
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./release/process_book.pdf
-        asset_name: process_book.pdf
-        asset_content_type: application/pdf
+        tag_name: ${{ steps.generate_tag.outputs.tag_name }}
+        name: Release ${{ steps.generate_tag.outputs.tag_name }}
+        files: |
+          release/process_book.pdf
+        token: ${{ secrets.GITHUB_TOKEN }}

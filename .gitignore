@@ -3,8 +3,7 @@ Gemfile.lock
 working/
 
 # Generated files (will be built by CI)
-release/*.epub
-release/*.pdf
+release/
 
 # Project management files (not for readers)
 TODO.md
