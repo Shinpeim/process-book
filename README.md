@@ -4,6 +4,50 @@
 
 書いているあいだは gist で管理されていたのですが、ボリュームが大きくなったので github で管理するように変えました。
 
+## はじめに：Docker環境の準備
+
+この文書では、実際にコマンドを実行してプロセスの動作を確認することが重要です。統一された環境で学習を進めるため、Dockerコンテナを使用することを推奨します。
+
+### 前提条件
+- Docker DesktopまたはDockerがインストールされていること
+- docker-composeが使えること
+
+### セットアップ手順
+
+1. Docker イメージをビルド
+```bash
+docker-compose build
+```
+
+2. コンテナを起動してシェルに入る
+```bash
+# コンテナを起動
+docker-compose up -d
+
+# コンテナ内のシェルに入る
+docker-compose exec process-book bash
+```
+
+### 複数ターミナルでの操作について
+
+この文書では、サーバーとクライアントの通信など、複数のターミナルを使用する例が出てきます。その場合は以下のようにして、同じコンテナに複数のシェルでアクセスしてください：
+
+```bash
+# ターミナル1（サーバー側）
+docker-compose exec process-book bash
+
+# ターミナル2（クライアント側）
+docker-compose exec process-book bash
+```
+
+### 終了時の片付け
+```bash
+# コンテナを停止・削除
+docker-compose down
+```
+
+**注意**: 本文中で「ターミナルを開いてコンテナにログインして」と記載されている箇所は、上記の `docker-compose exec process-book bash` コマンドを実行することを指しています。
+
 ## 目次
 
 [導入](/001.md)
