@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 
 async function generatePDF() {
-  const htmlPath = path.join(__dirname, '..', 'release', 'process_book.html');
+  const htmlPath = path.join(__dirname, '..', 'release', 'index.html');
   const pdfPath = path.join(__dirname, '..', 'release', 'process_book.pdf');
 
   // HTMLファイルが存在するか確認
