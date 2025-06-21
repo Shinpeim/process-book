@@ -79,3 +79,17 @@ docker-compose down
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.ja"><img alt="クリエイティブ・コモンズ・ライセンス" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png" /></a>
 
 この 作品 は <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.ja">クリエイティブ・コモンズ 表示 - 継承 3.0 非移植 ライセンスの下に提供されています。</a>
+
+## 更新履歴
+
+### 2025年のアップデート
+このプロジェクトは2025年にClaude Codeを使って令和最新版（変更当時）に更新されました。主な改善点：
+- GitHub Pagesでの自動公開
+- HTML生成の改善
+- ビルドプロセスの最適化
+- サンプルコードをRubyに統一
+- よりわかりやすい内容に変更
+- その他の技術的負債の解消
+
+## サポート
+この文書が役に立ったら、カンパがわりに[Amazon wishlist](https://www.amazon.co.jp/hz/wishlist/ls/155YU99M1BRGA/)からプレゼントをお待ちしています。
