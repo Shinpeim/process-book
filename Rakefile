@@ -6,8 +6,8 @@ WORKING_DIR = './working'
 RELEASE_DIR = './release'
 
 file init: FileList['./*.md'] do |task|
-  mkdir WORKING_DIR unless File.exists?(WORKING_DIR)
-  mkdir RELEASE_DIR unless File.exists?(RELEASE_DIR)
+  mkdir WORKING_DIR unless File.exist?(WORKING_DIR)
+  mkdir RELEASE_DIR unless File.exist?(RELEASE_DIR)
   cp task.prerequisites, WORKING_DIR
   mv "#{WORKING_DIR}/README.md", "#{WORKING_DIR}/000.README.md"
 end

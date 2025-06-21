@@ -48,9 +48,6 @@ HEADER = <<HEAD
     max-width: 800px;
     margin: 0 auto;
     background-color: var(--white);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    overflow: hidden;
   }
 
   /* タイトルページ */
@@ -59,7 +56,6 @@ HEADER = <<HEAD
     color: var(--text-primary);
     padding: 120px 40px;
     text-align: center;
-    border-bottom: 1px solid var(--sage);
   }
 
   .title {
@@ -97,18 +93,13 @@ HEADER = <<HEAD
 
   h2.chapter {
     font-size: 2em;
-    background: linear-gradient(to right, var(--sage), transparent);
-    padding: 0.5em 1em;
-    margin-left: -1em;
-    margin-right: -1em;
-    border-left: 4px solid var(--coral);
+    padding: 0.5em 0;
+    border-bottom: 2px solid var(--sage);
   }
 
   h3 {
     font-size: 1.5em;
     color: var(--teal);
-    border-left: 3px solid var(--sage);
-    padding-left: 0.5em;
   }
 
   /* 段落とテキスト */
@@ -132,7 +123,6 @@ HEADER = <<HEAD
   /* コードブロック */
   pre {
     background-color: var(--light-sage);
-    border-left: 4px solid var(--teal);
     padding: 1.5em;
     margin: 1.5em 0;
     overflow-x: auto;
@@ -165,7 +155,6 @@ HEADER = <<HEAD
 
   /* 引用 */
   blockquote {
-    border-left: 4px solid var(--coral);
     padding-left: 1.5em;
     margin: 1.5em 0;
     font-style: italic;
@@ -257,14 +246,35 @@ HEADER = <<HEAD
 HEAD
 
 def replace_index(html)
-  h2_id  = 0
+  h2_id  = 1
   mod = ''
+  
+  # シンプルなアプローチに戻す
+  # ただし、実際の章（001.mdなど）が始まるまでIDをスキップ
+  in_toc = false
+  skip_count = 0
+  
   html.each_line do |line|
+    # 目次セクションの検出
+    if line =~ %r!<h2>目次</h2>!
+      in_toc = true
+    elsif in_toc && line =~ %r!</ul>!  # 目次の終わり（仮定）
+      in_toc = false
+    end
+    
     # h2タグにIDを付与
-    if line.gsub! %r!<h2>!, %!<h2 class="chapter" id="chapter-#{h2_id}">!
-      h2_id += 1
+    if line =~ %r!<h2>!
+      if skip_count < 3  # README部分のh2をスキップ（この文書はなんですか、目次、ライセンス）
+        line.gsub! %r!<h2>!, %!<h2 class="chapter">!
+        skip_count += 1
+      else
+        # 実際の章番号
+        chapter_num = h2_id
+        line.gsub! %r!<h2>!, %!<h2 class="chapter" id="chapter-#{format('%03d', chapter_num)}">!
+        h2_id += 1
+      end
     # 目次のリンクを内部リンクに変換（番号付きのmdファイルへのリンク）
-    elsif line.gsub! %r!<p><a href="https://github\.com/Shinpeim/process-book/blob/master/(\d+)\.md">!, %!<p><a href="#chapter-\1">!
+    elsif line.gsub! %r!<a href="/(\d{3})\.md">!, '<a href="#chapter-\1">'
       # 番号はそのまま使用
     end
     mod += line
