@@ -23,12 +23,14 @@ cd process-book
 
 ### セットアップ手順
 
-1. Docker イメージをビルド
+#### Docker イメージをビルド
+
 ```bash
 docker-compose build
 ```
 
-2. コンテナを起動してシェルに入る
+#### コンテナを起動してシェルに入る
+
 ```bash
 # コンテナを起動
 docker-compose up -d

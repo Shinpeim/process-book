@@ -13,7 +13,6 @@ HEADER = <<HEAD
 <meta name="Author" content="Shinpei Maruyama">
 <meta name="DC.date.publication" content="2013-03">
 <meta name="DC.rights" content="Shinpei Maruyama">
-<link rel="stylesheet" href="../styles/epub.css" type="text/css" />
 <style>
   /* カラーパレット */
   :root {
@@ -145,7 +144,8 @@ HEADER = <<HEAD
 
   /* リスト */
   ul, ol {
-    margin-left: 2em;
+    margin-left: 0;
+    padding-left: 2em;
     margin-bottom: 1.5em;
   }
 
@@ -197,20 +197,26 @@ HEADER = <<HEAD
   }
 
   /* コンテンツパディング */
-  body > p,
-  body > h1,
-  body > h2,
-  body > h3,
-  body > h4,
-  body > h5,
-  body > h6,
-  body > ul,
-  body > ol,
-  body > blockquote,
-  body > pre,
-  body > table {
-    margin-left: 40px;
-    margin-right: 40px;
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockquote,
+  pre,
+  table,
+  ul,
+  ol {
+    margin-left: 80px;
+    margin-right: 80px;
+  }
+  
+  /* リストは追加のパディング */
+  ul,
+  ol {
+    padding-left: 1.5em;
   }
 
   /* 印刷用スタイル */
@@ -287,7 +293,7 @@ def replace(html)
   mod.gsub %r!<img src="https://raw.github.com/Shinpeim/process-book/master/images/!, %q!<img src="../images/!
 end
 
-markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true)
+markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :autolink => true, :space_after_headers => true, :fenced_code_blocks => true)
 STDOUT.write HEADER
 STDOUT.write replace(markdown.render(ARGF.readlines.join ''))
 STDOUT.write "</body></html>\n"
