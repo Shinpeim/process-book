@@ -1,6 +1,6 @@
 task :default => "book"
 
-task book: [:epub, :pdf, :clean]
+task book: [:pdf, :clean]
 
 WORKING_DIR = './working'
 RELEASE_DIR = './release'
@@ -13,15 +13,11 @@ file init: FileList['./*.md'] do |task|
 end
 
 task html: %w[init] do
-  sh "script/export_html.rb #{FileList["./#{WORKING_DIR}/*.md"].join(' ')} > #{RELEASE_DIR}/process_book.html"
-end
-
-task epub: %w[html] do
-  sh "ebook-convert #{RELEASE_DIR}/process_book.html #{RELEASE_DIR}/process_book.epub --no-default-epub-cover"
+  sh "script/export_html.rb #{FileList["./#{WORKING_DIR}/*.md"].join(' ')} > #{RELEASE_DIR}/index.html"
 end
 
 task pdf: %w[html] do
-  sh "wkhtmltopdf #{RELEASE_DIR}/process_book.html #{RELEASE_DIR}/process_book.pdf --encoding utf8"
+  sh "wkhtmltopdf #{RELEASE_DIR}/index.html #{RELEASE_DIR}/process_book.pdf --encoding utf8"
 end
 
 task :clean do
