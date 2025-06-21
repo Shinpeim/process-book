@@ -1,4 +1,4 @@
-FROM ruby:3.2-slim
+FROM ruby:3.4-slim
 
 # 基本的なツールのインストール
 RUN apt-get update && apt-get install -y \
