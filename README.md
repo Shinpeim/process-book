@@ -2,7 +2,16 @@
 
 この文書は*nix系のシステムにおけるプロセスやシグナルなどについて説明することを目的に書かれました。「プロセスとかよくわかってないからちゃんと知りたいな」みたいなひとたちが想定読者です。
 
-書いているあいだは gist で管理されていたのですが、ボリュームが大きくなったので github で管理するように変えました。
+## 簡単に試すには
+
+このリポジトリをクローンすると、Docker環境で簡単に試すことができます：
+
+```bash
+git clone https://github.com/Shinpeim/process-book.git
+cd process-book
+```
+
+また、[Releases](https://github.com/Shinpeim/process-book/releases)にはビルド済みのPDFファイルが公開されているので、手軽に読みたい場合はそちらをご利用ください。
 
 ## はじめに：Docker環境の準備
 
