@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y \
     procps \
     psmisc \
     strace \
+    vim \
     && rm -rf /var/lib/apt/lists/*
 
 # 作業ディレクトリの設定
