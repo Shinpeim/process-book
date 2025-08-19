@@ -6,6 +6,7 @@ RUN apt-get update && apt-get install -y \
     psmisc \
     strace \
     vim \
+    telnet \
     && rm -rf /var/lib/apt/lists/*
 
 # 作業ディレクトリの設定
