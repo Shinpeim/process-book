@@ -47,7 +47,7 @@ jobs:
       run: node script/generate_pdf.js
     
     - name: Create Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v2
       with:
         tag_name: ${{ steps.generate_tag.outputs.tag_name }}
         name: Release ${{ steps.generate_tag.outputs.tag_name }}
